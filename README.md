@@ -1,4 +1,4 @@
-# Rotten Tomatoes Scraper
+# Rotten Tomatoes Scraper 🍅
 
 This project is a web scraper designed to extract movie data from the Rotten Tomatoes website.
 
