@@ -1,4 +1,5 @@
 import urllib3
+import csv
 import json
 from bs4 import BeautifulSoup
 
@@ -111,7 +112,13 @@ container = soup.find(
         'data-gridpageadsmanager': 'tilesWrap'
     })
 
+
 if container:
+
+    with open('movies.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Title', 'Critics Score', 'Audience Score', 'Date'])
+
     movieInfos = container.find_all('tile-dynamic')
     for info in movieInfos:
         movieTitleElement = info.find('span', attrs={'class': 'p--small', 'data-qa': 'discovery-media-list-item-title'})
@@ -124,4 +131,6 @@ if container:
         audienceScore = audienceScoreElement.text.strip() if audienceScoreElement.text.strip() else 'No Score.'
         date = dateElement.text.strip() if dateElement.text.strip() else 'No Date.'
 
-        print(f"Movie: {title} | Critic Score: {criticsScore} | Audience Score: {audienceScore} | Date: {date}")
+        with open('movies.csv', mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([title, criticsScore, audienceScore, date])
